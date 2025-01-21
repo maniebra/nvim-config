@@ -14,7 +14,6 @@ return {
         auto_restore = true,
         auto_session_enable_last_session = true,
       })
-      
     end,
   },
   'numToStr/Comment.nvim',

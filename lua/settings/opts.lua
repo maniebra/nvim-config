@@ -1,3 +1,5 @@
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 vim.opt.signcolumn = 'yes'
 vim.opt.number = true
 vim.opt.relativenumber = true

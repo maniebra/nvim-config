@@ -1,6 +1,6 @@
 -- SHORCUTS
 -- INSERT
-vim.keymap.set('i', '<C-S>', '<ESC>:w<CR>', { noremap = true, silent = true, desc = "Save file" })
+vim.keymap.set('i', '<C-S>', '<ESC>:w<CR><I>', { noremap = true, silent = true, desc = "Save file" })
 vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true, desc = "Exit insert mode" })
 
 -- NORMAL

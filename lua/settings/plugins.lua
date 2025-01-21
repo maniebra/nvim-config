@@ -1,12 +1,28 @@
+require('auto-session').setup({
+  log_level = 'info',
+
+  pre_save_cmds = {
+    function()
+      require("nvim-tree.api").tree.close()
+    end
+  },
+
+  post_restore_cmds = {
+    function()
+      vim.cmd "NvimTreeFindFile"
+    end
+  },
+})
+
 require("codecompanion").setup({
-    opts = {
-      log_level = "DEBUG", -- or "TRACE"
-    }
-  })
+  opts = {
+    log_level = "DEBUG", -- or "TRACE"
+  }
+})
 
 require('lualine').setup {
   options = { theme = 'ayu_mirage' },
-    sections = {
+  sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
@@ -28,4 +44,3 @@ require("nvim-tree").setup({
     git_ignored = false,
   },
 })
-
