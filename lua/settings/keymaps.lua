@@ -14,6 +14,15 @@ vim.keymap.set('n', '<C-G><C-S>', function()
         print('Commit canceled.')
     end
 end, { noremap = true, silent = true, desc = "Git commit with dynamic message" })
+vim.keymap.set('n', '<C-G><C-G>', function ()
+    local commit_message = vim.fn.input('Commit message: ', '#')
+    if commit_message ~= '' then
+    	vim.cmd('Git commit -a -m "' .. commit_message .. '"')
+    else
+	print('Invalid commit')
+    end
+    vim.cmd(':Git push')
+end, { noremap = true, silent = true, desc = "Git add-commit-push" })
 
 vim.keymap.set('n', '<F5>', ':make<CR>', { noremap = true, silent = true, desc = "Execute all in Makefile" })
 
