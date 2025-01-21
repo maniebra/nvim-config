@@ -3,6 +3,9 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.clipboard = 'unnamedplus'
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local function on_autosession_restore()
     vim.cmd 'NvimTreeFindFile'
 end
@@ -24,6 +27,19 @@ require('lualine').setup {
     lualine_z = {'location'}
   },
 }
+
+require("nvim-tree").setup({
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = false,
+    git_ignored = false,
+  },
+})
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'AutoSessionRestorePost',
