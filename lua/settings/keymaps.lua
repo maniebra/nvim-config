@@ -9,6 +9,7 @@ vim.keymap.set('n', '<C-G><C-P>', ':Git push<CR>', { noremap = true, silent = tr
 vim.keymap.set('n', '<C-G><C-S>', function()
     local commit_message = vim.fn.input('Commit message: ', '#')
     if commit_message ~= '' then
+	vim.cmd('Git add .')
         vim.cmd('Git commit -m "' .. commit_message .. '"')
     else
         print('Commit canceled.')
