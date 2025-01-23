@@ -20,17 +20,21 @@ require("codecompanion").setup({
   }
 })
 
-require('lualine').setup {
-  options = { theme = 'ayu_mirage' },
+require('lualine').setup({
+  options = {
+    theme = "auto",
+    section_separators = { right = '', left = '' },
+    component_separators = { left = '', right = '' }
+  },
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
+    lualine_y = {'encoding', 'fileformat', 'filetype'},
+    lualine_x = {'progress'},
     lualine_z = {'location'}
   },
-}
+})
 
 require("nvim-tree").setup({
   view = {
