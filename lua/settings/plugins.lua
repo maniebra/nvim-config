@@ -48,3 +48,5 @@ require("nvim-tree").setup({
     git_ignored = false,
   },
 })
+
+require("bidi").setup()

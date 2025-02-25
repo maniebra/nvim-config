@@ -36,3 +36,6 @@ vim.keymap.set('n', "<c-`>", ':FloatermToggle<CR>', {noremap = true, silent = tr
 -- TERMINAL
 vim.keymap.set('t', '<ESC>', '<C-\\><C-N>:q<CR>', { noremap = true, silent = true, desc = "Exit terminal" })
 vim.keymap.set('t', 'jk', '<C-\\><C-N>:q<CR>', { noremap = true, silent = true, desc = "Exit terminal" })
+
+-- TOOLCHAIN
+vim.keymap.set('n', '<C-P><C-P>', ':!pre-commit run --all-files<CR>', { noremap = true, silent = true, desc = "Run pre-commit" })

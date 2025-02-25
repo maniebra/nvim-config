@@ -13,8 +13,11 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+if vim.g.neovide then
+	require("settings.neovide")
+end
 
+require("lazy").setup("plugins")
 require("nvim-tree").setup()
 
 require("settings.keymaps")
