@@ -6,8 +6,8 @@ return {
       require("base46").load_all_highlights()
     end,
   },
-  "nvzone/volt",
-  "nvzone/menu",
+  { "nvzone/volt" , lazy = true },
+  { "nvzone/menu" , lazy = true },
   { "nvzone/minty", cmd = { "Huefy", "Shades" } },
   {
     'nvimdev/dashboard-nvim',
