@@ -3,10 +3,6 @@ return {
   {
     'rmagatti/auto-session',
     lazy = false,
-
-    ---enables autocomplete for opts
-    ---@module "auto-session"
-    ---@type AutoSession.Config
     config = function()
       require('auto-session').setup({
       	suppressed_dirs = { "~/", "/" },
@@ -38,4 +34,9 @@ return {
   -- Performance Enhancements
   'lewis6991/impatient.nvim',
 
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+    cmd = "WhichKey",
+  },
 }

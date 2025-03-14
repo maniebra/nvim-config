@@ -33,9 +33,16 @@ vim.keymap.set('n', '<C-S>', ':w<CR>', { noremap = true, silent = true, desc = "
 
 vim.keymap.set('n', "<c-`>", ':FloatermToggle<CR>', {noremap = true, silent = true, desc = "Open floating terminal" })
 
+vim.keymap.set("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
+
 -- TERMINAL
 vim.keymap.set('t', '<ESC>', '<C-\\><C-N>:q<CR>', { noremap = true, silent = true, desc = "Exit terminal" })
 vim.keymap.set('t', 'jk', '<C-\\><C-N>:q<CR>', { noremap = true, silent = true, desc = "Exit terminal" })
 
 -- TOOLCHAIN
 vim.keymap.set('n', '<C-P><C-P>', ':!pre-commit run --all-files<CR>', { noremap = true, silent = true, desc = "Run pre-commit" })
+
+-- COMMENTS
+vim.keymap.set("i", "<leader>//", "gcc", { desc = "toggle comment", remap = true })
+vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
+vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
