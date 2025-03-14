@@ -1,3 +1,5 @@
+vim.g.mapleader = ""
+
 -- Load lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -24,3 +26,4 @@ require("settings.keymaps")
 require("settings.lsp")
 require("settings.opts")
 require("settings.plugins")
+require("settings.hooks")
