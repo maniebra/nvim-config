@@ -35,6 +35,8 @@ vim.keymap.set('n', "<c-`>", ':FloatermToggle<CR>', {noremap = true, silent = tr
 
 vim.keymap.set("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 
+vim.keymap.set("n", "<leader>cS", "<cmd>Themery <CR>", { desc = "Change theme" })
+
 -- TERMINAL
 vim.keymap.set('t', '<ESC>', '<C-\\><C-N>:q<CR>', { noremap = true, silent = true, desc = "Exit terminal" })
 vim.keymap.set('t', 'jk', '<C-\\><C-N>:q<CR>', { noremap = true, silent = true, desc = "Exit terminal" })
