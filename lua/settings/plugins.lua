@@ -80,3 +80,5 @@ require("themery").setup({
   theme = "tokyonight",
   livePreview = true, 
 })
+
+require("todo-comments").setup()

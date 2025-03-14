@@ -40,6 +40,10 @@ return {
   {
     "zaldih/themery.nvim",
     lazy = false
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
   }
 
 }
