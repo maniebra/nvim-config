@@ -45,7 +45,6 @@ vim.keymap.set('t', 'jk', '<C-\\><C-N>:q<CR>', { noremap = true, silent = true, 
 vim.keymap.set('n', '<C-P><C-P>', ':!pre-commit run --all-files<CR>', { noremap = true, silent = true, desc = "Run pre-commit" })
 
 -- COMMENTS
-vim.keymap.set("i", "<leader>//", "gcc", { desc = "toggle comment", remap = true })
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 

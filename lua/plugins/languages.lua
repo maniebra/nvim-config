@@ -16,15 +16,11 @@ return {
   'hrsh7th/cmp-cmdline',
   'L3MON4D3/LuaSnip',
   'saadparwaiz1/cmp_luasnip',
+  'nvimdev/lspsaga.nvim',
 
   -- Debugging and DAP
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
   'theHamsta/nvim-dap-virtual-text',
-
-  -- Additional Language Support
-  'fatih/vim-go',        -- For Go development
-  'rust-lang/rust.vim',  -- For Rust development
-  'dense-analysis/ale',  -- For linting and syntax checking
 }
 

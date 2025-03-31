@@ -14,12 +14,6 @@ require('auto-session').setup({
   },
 })
 
-require("codecompanion").setup({
-  opts = {
-    log_level = "DEBUG", -- or "TRACE"
-  }
-})
-
 require('lualine').setup({
   options = {
     theme = "auto",
@@ -48,8 +42,6 @@ require("nvim-tree").setup({
     git_ignored = false,
   },
 })
-
-require("bidi").setup()
 
 require("noice").setup({
 lsp = {

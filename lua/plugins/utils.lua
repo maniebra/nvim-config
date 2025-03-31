@@ -16,12 +16,6 @@ return {
   'windwp/nvim-autopairs',
   'lukas-reineke/indent-blankline.nvim',
   'norcalli/nvim-colorizer.lua',
-  {
-    'folke/which-key.nvim',
-    config = function()
-      require('which-key').setup({})
-    end,
-  },
   'jose-elias-alvarez/null-ls.nvim', -- For formatters and linters
 
 
@@ -31,12 +25,4 @@ return {
   -- Code Navigation
   'SmiteshP/nvim-navic',
 
-  -- Performance Enhancements
-  'lewis6991/impatient.nvim',
-
-  {
-    "folke/which-key.nvim",
-    keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
-    cmd = "WhichKey",
-  },
 }
