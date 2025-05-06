@@ -16,7 +16,6 @@ return {
     'windwp/nvim-autopairs',
     'lukas-reineke/indent-blankline.nvim',
     'norcalli/nvim-colorizer.lua',
-    'jose-elias-alvarez/null-ls.nvim',
 
     'SmiteshP/nvim-navic',
     {
