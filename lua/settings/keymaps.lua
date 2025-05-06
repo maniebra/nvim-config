@@ -25,6 +25,17 @@ vim.keymap.set('n', '<C-G><C-G>', function ()
     vim.cmd(':Git push')
 end, { noremap = true, silent = true, desc = "Git add-commit-push" })
 
+vim.keymap.set('n', '<C-G><C-M>', function ()
+    local commit_message = vim.fn.input('Commit message: ', 'KOSE NANE POORI')
+    if commit_message ~= '' then
+	vim.cmd(':Git add .')
+    	vim.cmd('Git commit -a -m "' .. commit_message .. '"')
+    else
+	print('Invalid commit')
+    end
+    vim.cmd(':Git push')
+end, { noremap = true, silent = true, desc = "Git add-commit-push" })
+
 vim.keymap.set('n', '<F5>', ':make<CR>', { noremap = true, silent = true, desc = "Execute all in Makefile" })
 
 vim.keymap.set('n', '<C-T><C-D>', ':NvimTreeFindFile<CR>', { noremap = true, silent = true, desc = "Open NvimTree file tree" })
@@ -60,3 +71,9 @@ vim.keymap.set({ "n", "v" }, "<RightMouse>", function()
 
   require("menu").open(options, { mouse = true })
 end, {})
+
+-- SEARCH
+vim.keymap.set("n", 'xx/', ':nohlsearch<CR>', { silent = true, desc = "Clear search highlight" })
+
+vim.keymap.set('x', '<leader>cc', ':CodeSnap<CR>', {desc = "CodeSnap Image saved to clipboard"})
+vim.keymap.set('x', '<leader>cs', ':CodeSnapSave<CR>', {desc = "CodeSnap Image saved to pics dir"})

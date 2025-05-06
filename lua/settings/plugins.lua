@@ -74,3 +74,14 @@ require("themery").setup({
 })
 
 require("todo-comments").setup()
+
+require("codesnap").setup({
+    save_path = "~/Pictures/CodeSnaps/",
+    has_breadcrumbs = true,
+    has_line_numbers = true,
+    bg_theme = "grape",
+    min_width = 32,
+    bg_padding = 0, 
+    watermark_font_family = "Inter",
+    watermark = "https://github.com/maniebra",
+})
