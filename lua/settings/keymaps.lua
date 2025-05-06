@@ -77,3 +77,4 @@ vim.keymap.set("n", 'xx/', ':nohlsearch<CR>', { silent = true, desc = "Clear sea
 
 vim.keymap.set('x', '<leader>cc', ':CodeSnap<CR>', {desc = "CodeSnap Image saved to clipboard"})
 vim.keymap.set('x', '<leader>cs', ':CodeSnapSave<CR>', {desc = "CodeSnap Image saved to pics dir"})
+

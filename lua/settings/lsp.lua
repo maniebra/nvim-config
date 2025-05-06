@@ -1,4 +1,3 @@
-
 -- Configure nvim-cmp
 local cmp = require('cmp')
 
