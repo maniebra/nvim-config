@@ -78,3 +78,5 @@ vim.keymap.set("n", 'xx/', ':nohlsearch<CR>', { silent = true, desc = "Clear sea
 vim.keymap.set('x', '<leader>cc', ':CodeSnap<CR>', {desc = "CodeSnap Image saved to clipboard"})
 vim.keymap.set('x', '<leader>cs', ':CodeSnapSave<CR>', {desc = "CodeSnap Image saved to pics dir"})
 
+vim.keymap.set('n', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', {desc = "open a new tab", remap = true})
+vim.keymap.set('i', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', {desc = "open a new tab", remap = true})

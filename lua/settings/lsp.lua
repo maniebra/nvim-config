@@ -66,10 +66,24 @@ cmp.setup.cmdline(':', {
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+local util = require('lspconfig.util')
+
+
 -- -- Python
-require('lspconfig')['pyright'].setup {
-  capabilities = capabilities,
-}
+require('lspconfig').pyright.setup({
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "basic",  -- or "off" if you want no type checking
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = "openFilesOnly"
+      }
+    }
+  }
+})
+
+
 
 -- -- Lua
 require('lspconfig')['lua_ls'].setup {
@@ -103,6 +117,15 @@ require('lspconfig')['dockerls'].setup {
 
 -- -- LaTeX
 require('lspconfig')['texlab'].setup {
+  capabilities = capabilities,
+}
+
+require('lspconfig')['omnisharp'].setup {
+  capabilities = capabilities,
+}
+
+-- Java
+require('lspconfig')['jdtls'].setup {
   capabilities = capabilities,
 }
 

@@ -9,8 +9,6 @@ return {
 
     -- Autocompletion and Snippets
     'hrsh7th/nvim-cmp',
-    'jose-elias-alvarez/null-ls.nvim',
-    "nvimtools/none-ls.nvim",
     'VonHeikemen/lsp-zero.nvim',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',

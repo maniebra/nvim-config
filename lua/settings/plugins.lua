@@ -86,14 +86,25 @@ require("codesnap").setup({
     watermark = "https://github.com/maniebra",
 })
 
-require("neorg").setup()
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+require("mason").setup({
+  PATH = "append",
+  log_level = vim.log.levels.DEBUG
+})
 
-local null_ls = require("null-ls")
-
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.black
+require('mason-lspconfig').setup({
+    capabilities = capabilities,
+    ensure_installed = {
+        'lua_ls',
+        'clangd',
+        'omnisharp',
+        'pyright' 
     },
+})
+
+require('lspconfig').clangd.setup({
+  capabilities = capabilities,
+  -- cmd may need customization based on your system:
+  cmd = { "clangd", "--background-index", "--suggest-missing-includes" }
 })
