@@ -18,3 +18,4 @@ vim.o.tabstop = 4
 vim.o.softtabstop = 4
 
 vim.cmd 'colorscheme tokyonight'
+vim.cmd 'set ve+=onemore'
