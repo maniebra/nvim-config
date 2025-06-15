@@ -80,3 +80,13 @@ vim.keymap.set('x', '<leader>cs', ':CodeSnapSave<CR>', {desc = "CodeSnap Image s
 
 vim.keymap.set('n', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', {desc = "open a new tab", remap = true})
 vim.keymap.set('i', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', {desc = "open a new tab", remap = true})
+
+-- TELESCOPE
+
+vim.keymap.set("n", '<leader>TT', ':telescope<CR>', { desc = "open telescope", remap = true })
+
+-- INSERT MODE MOVEMENT
+vim.keymap.set('i', '<C-h>', '<Left>')
+vim.keymap.set('i', '<C-j>', '<Down>')
+vim.keymap.set('i', '<C-k>', '<Up>')
+vim.keymap.set('i', '<C-l>', '<Right>')
