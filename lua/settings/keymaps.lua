@@ -36,7 +36,10 @@ vim.keymap.set('n', '<C-G><C-M>', function ()
     vim.cmd(':Git push')
 end, { noremap = true, silent = true, desc = "Git add-commit-push" })
 
+-- RUNNERS
 vim.keymap.set('n', '<F5>', ':make<CR>', { noremap = true, silent = true, desc = "Execute all in Makefile" })
+vim.keymap.set('n', '<F6>', ':make build<CR>', { noremap = true, silent = true, desc = "Execute build in Makefile" })
+vim.keymap.set('n', '<F7>', ':make run<CR>', { noremap = true, silent = true, desc = "Execute run in Makefile" })
 
 vim.keymap.set('n', '<C-T><C-D>', ':NvimTreeFindFile<CR>', { noremap = true, silent = true, desc = "Open NvimTree file tree" })
 
