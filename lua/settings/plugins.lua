@@ -89,8 +89,8 @@ require("codesnap").setup({
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require("mason").setup({
-  PATH = "append",
-  log_level = vim.log.levels.DEBUG
+    PATH = "append",
+    log_level = vim.log.levels.DEBUG
 })
 
 require('mason-lspconfig').setup({
@@ -99,12 +99,12 @@ require('mason-lspconfig').setup({
         'lua_ls',
         'clangd',
         'omnisharp',
-        'pyright' 
+        'pyright'
     },
 })
 
 require('lspconfig').clangd.setup({
-  capabilities = capabilities,
-  -- cmd may need customization based on your system:
-  cmd = { "clangd", "--background-index", "--suggest-missing-includes" }
+    capabilities = capabilities,
+    -- cmd may need customization based on your system:
+    cmd = { "clangd", "--background-index", "--suggest-missing-includes" }
 })
