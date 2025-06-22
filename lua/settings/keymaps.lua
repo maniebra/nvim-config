@@ -129,8 +129,12 @@ end, {})
 -- SEARCH
 vim.keymap.set("n", 'xx/', ':nohlsearch<CR>', { silent = true, desc = "Clear search highlight" })
 
+-- CODE SNAP
+
 vim.keymap.set('x', '<leader>cc', ':CodeSnap<CR>', { desc = "CodeSnap Image saved to clipboard" })
 vim.keymap.set('x', '<leader>cs', ':CodeSnapSave<CR>', { desc = "CodeSnap Image saved to pics dir" })
+
+-- TABS MANAGEMENT
 
 vim.keymap.set('n', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', { desc = "open a new tab", remap = true })
 vim.keymap.set('i', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', { desc = "open a new tab", remap = true })
@@ -138,8 +142,11 @@ vim.keymap.set('i', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', { desc = "o
 -- TELESCOPE
 
 vim.keymap.set("n", '<leader>tt', ':Telescope<CR>', { desc = "open telescope", remap = true })
-vim.keymap.set("n", '<leader>tf', ':Telescope fd<CR>', { desc = "open telescope", remap = true })
-vim.keymap.set("n", '<leader>tvo', ':Telescope vim_options<CR>', { desc = "open telescope", remap = true })
+vim.keymap.set("n", '<leader>km', ':Telescope keymaps<CR>', { desc = "open telescope keymaps", remap = true })
+vim.keymap.set("n", '<leader>fd', ':Telescope fd<CR>', { desc = "open telescope fd", remap = true })
+vim.keymap.set("n", '<leader>cp', ':Telescope commands<CR>', { desc = "open telescope commands", remap = true })
+vim.keymap.set("n", '<leader>CS', ':Telescope colorscheme<CR>', { desc = "open telescope colorscheme", remap = true })
+vim.keymap.set("n", '<leader>tvo', ':Telescope vim_options<CR>', { desc = "open telescope vim options", remap = true })
 
 
 -- INSERT MODE MOVEMENT
@@ -154,3 +161,16 @@ vim.keymap.set('v', '<leader>ft', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>ft', function()
   vim.lsp.buf.format({ async = true })
 end, { desc = 'Format buffer', noremap = true, silent = true })
+
+-- Calculator keymaps
+vim.keymap.set('n', '<leader>cl', function()
+  vim.ui.input({ prompt = 'Calculator (Lua expression): ' }, function(expr)
+    if not expr or expr == '' then return end
+    local ok, result = pcall(function() return load('return ' .. expr)() end)
+    if ok then
+      vim.notify(expr .. ' = ' .. result, vim.log.levels.INFO, { title = 'Calculator' })
+    else
+      vim.notify('Error: ' .. result, vim.log.levels.ERROR, { title = 'Calculator' })
+    end
+  end)
+end, { desc = 'Calculator', noremap = true, silent = true })
