@@ -138,6 +138,21 @@ vim.keymap.set('x', '<leader>cs', ':CodeSnapSave<CR>', { desc = "CodeSnap Image 
 
 vim.keymap.set('n', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', { desc = "open a new tab", remap = true })
 vim.keymap.set('i', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', { desc = "open a new tab", remap = true })
+vim.keymap.set('n',  '<A-1>', '<Cmd>BufferGoto 1<CR>', { desc = "open tab 1", remap = true , silent = true })
+vim.keymap.set('n',  '<A-2>', '<Cmd>BufferGoto 2<CR>', { desc = "open tab 2", remap = true , silent = true })
+vim.keymap.set('n',  '<A-3>', '<Cmd>BufferGoto 3<CR>', { desc = "open tab 3", remap = true , silent = true })
+vim.keymap.set('n',  '<A-4>', '<Cmd>BufferGoto 4<CR>', { desc = "open tab 4", remap = true , silent = true })
+vim.keymap.set('n',  '<A-5>', '<Cmd>BufferGoto 5<CR>', { desc = "open tab 5", remap = true , silent = true })
+vim.keymap.set('n',  '<A-6>', '<Cmd>BufferGoto 6<CR>', { desc = "open tab 6", remap = true , silent = true })
+vim.keymap.set('n',  '<A-7>', '<Cmd>BufferGoto 7<CR>', { desc = "open tab 7", remap = true , silent = true })
+vim.keymap.set('n',  '<A-8>', '<Cmd>BufferGoto 8<CR>', { desc = "open tab 8", remap = true , silent = true })
+vim.keymap.set('n',  '<A-9>', '<Cmd>BufferGoto 9<CR>', { desc = "open tab 9", remap = true , silent = true })
+vim.keymap.set('n',  '<A-0>', '<Cmd>BufferLast<CR>', { desc = "open the last tab", remap = true , silent = true })
+vim.keymap.set('n', '<A-->', '<Cmd>BufferMoveNext<CR>', {desc = "move tab forward", remap = true, silent = true })
+vim.keymap.set('n', '<A-=>', '<Cmd>BufferMovePrevious<CR>', {desc = "move tab backward", remap = true, silent = true })
+vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', {desc = "go to next tab", remap = true, silent = true })
+vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', {desc = "go to previous tab", remap = true, silent = true })
+vim.keymap.set('n', '<A-x>', '<Cmd>BufferClose<CR>', { desc = "close current tab", remap = true, silent = true })
 
 -- TELESCOPE
 
@@ -148,6 +163,8 @@ vim.keymap.set("n", '<leader>cp', ':Telescope commands<CR>', { desc = "open tele
 vim.keymap.set("n", '<leader>CS', ':Telescope colorscheme<CR>', { desc = "open telescope colorscheme", remap = true })
 vim.keymap.set("n", '<leader>tvo', ':Telescope vim_options<CR>', { desc = "open telescope vim options", remap = true })
 
+-- DOCUMENT GENERATION
+vim.keymap.set('n', '<Leader>dg', '<Plug>(doge-generate)')
 
 -- INSERT MODE MOVEMENT
 vim.keymap.set('i', '<C-h>', '<Left>')
@@ -159,18 +176,18 @@ vim.keymap.set('i', '<C-l>', '<Right>')
 vim.keymap.set('v', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('v', '<leader>ft', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>ft', function()
-  vim.lsp.buf.format({ async = true })
+    vim.lsp.buf.format({ async = true })
 end, { desc = 'Format buffer', noremap = true, silent = true })
 
 -- Calculator keymaps
 vim.keymap.set('n', '<leader>cl', function()
-  vim.ui.input({ prompt = 'Calculator (Lua expression): ' }, function(expr)
-    if not expr or expr == '' then return end
-    local ok, result = pcall(function() return load('return ' .. expr)() end)
-    if ok then
-      vim.notify(expr .. ' = ' .. result, vim.log.levels.INFO, { title = 'Calculator' })
-    else
-      vim.notify('Error: ' .. result, vim.log.levels.ERROR, { title = 'Calculator' })
-    end
-  end)
+    vim.ui.input({ prompt = 'Calculator (Lua expression): ' }, function(expr)
+        if not expr or expr == '' then return end
+        local ok, result = pcall(function() return load('return ' .. expr)() end)
+        if ok then
+            vim.notify(expr .. ' = ' .. result, vim.log.levels.INFO, { title = 'Calculator' })
+        else
+            vim.notify('Error: ' .. result, vim.log.levels.ERROR, { title = 'Calculator' })
+        end
+    end)
 end, { desc = 'Calculator', noremap = true, silent = true })
