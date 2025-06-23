@@ -18,6 +18,17 @@ return {
     'saadparwaiz1/cmp_luasnip',
     'nvimdev/lspsaga.nvim',
 
+
+    {
+      "smjonas/inc-rename.nvim",
+      config = function()
+        require("inc_rename").setup()
+        vim.keymap.set("n", "<leader>rn", function()
+          return ":IncRename " .. vim.fn.expand("<cword>")
+        end, { expr = true, desc = "LSP Rename" })
+      end
+    },
+
     -- Debugging and DAP
     'mfussenegger/nvim-dap',
     'rcarriga/nvim-dap-ui',
