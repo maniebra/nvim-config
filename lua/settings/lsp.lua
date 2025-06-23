@@ -129,3 +129,10 @@ require('lspconfig')['jdtls'].setup {
   capabilities = capabilities,
 }
 
+-- Assembly
+require('lspconfig')['asm_lsp'].setup {
+  cmd = { 'asm-lsp' },
+  filetypes = { 'asm', 's', 'S' },
+  root_dir = require('lspconfig.util').root_pattern('.git', '.'),
+  capabilities = capabilities,
+}

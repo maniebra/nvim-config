@@ -205,3 +205,5 @@ vim.keymap.set("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>"
     { desc = "close all preview windows", noremap = true })
 vim.keymap.set("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
     { desc = "go to preview references", noremap = true })
+
+

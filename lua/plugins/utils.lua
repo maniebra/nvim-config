@@ -131,5 +131,22 @@ return {
             "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons"
         },
+    },
+    {
+        "athar-qadri/scratchpad.nvim",
+        event = "VeryLazy",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("scratchpad").setup()
+        end,
+        keys = {
+            {
+                "<Leader>es",
+                function()
+                    require("scratchpad").ui:new_scratchpad()
+                end,
+                desc = "open scratchpad"
+            },
+        },
     }
 }

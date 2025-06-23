@@ -61,5 +61,18 @@ return {
                 border = "rounded"
             }
         },
+    },
+    {
+        'AntonVanAssche/music-controls.nvim',
+        opts = {
+            default_player = 'elisa',
+        }
+    },
+    {
+        "goolord/alpha-nvim",
+        config = function()
+            require("alpha").setup(require("alpha.themes.dashboard").config)
+        end,
+        event = "VimEnter"
     }
 }

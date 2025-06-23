@@ -25,7 +25,7 @@ require('lualine').setup({
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
         lualine_y = { 'encoding', 'fileformat', 'filetype' },
-        lualine_x = { 'progress' },
+        lualine_x = { 'progress', require("music-controls")._statusline },
         lualine_z = { 'location' }
     },
 })
@@ -108,3 +108,21 @@ require('lspconfig').clangd.setup({
     -- cmd may need customization based on your system:
     cmd = { "clangd", "--background-index", "--suggest-missing-includes" }
 })
+
+local dashboard = require("alpha.themes.dashboard")
+dashboard.section.header.val = {
+    " ██████╗██╗     ██╗   ██╗███████╗████████╗██████╗ ██╗  ██╗",
+    "██╔════╝██║     ██║   ██║██╔════╝╚══██╔══╝██╔══██╗╚██╗██╔╝",
+    "██║     ██║     ██║   ██║███████╗   ██║   ██████╔╝ ╚███╔╝ ",
+    "██║     ██║     ██║   ██║╚════██║   ██║   ██╔══██╗ ██╔██╗ ",
+    "╚██████╗███████╗╚██████╔╝███████║   ██║   ██║  ██║██╔╝ ██╗",
+    " ╚═════╝╚══════╝ ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝",
+}
+dashboard.section.buttons.val = {
+    dashboard.button("f", "󰈞  Find file", ":Telescope find_files<CR>"),
+    dashboard.button("r", "  Recent files", ":Telescope oldfiles<CR>"),
+    dashboard.button("s", "  Restore Session", ":lua require('auto-session.session-lens').search_session()<CR>"),
+    dashboard.button("p", " Projects", ":Telescope projects<CR>"),
+    dashboard.button("q", "  Quit", ":qa<CR>"),
+}
+require("alpha").setup(dashboard.config)
