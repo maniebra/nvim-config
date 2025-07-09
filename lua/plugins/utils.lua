@@ -148,5 +148,6 @@ return {
                 desc = "open scratchpad"
             },
         },
-    }
+    },
+    "jbyuki/venn.nvim"
 }

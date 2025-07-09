@@ -86,29 +86,6 @@ require("codesnap").setup({
     watermark = "https://github.com/maniebra",
 })
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require("mason").setup({
-    PATH = "append",
-    log_level = vim.log.levels.DEBUG
-})
-
-require('mason-lspconfig').setup({
-    capabilities = capabilities,
-    ensure_installed = {
-        'lua_ls',
-        'clangd',
-        'omnisharp',
-        'pyright'
-    },
-})
-
-require('lspconfig').clangd.setup({
-    capabilities = capabilities,
-    -- cmd may need customization based on your system:
-    cmd = { "clangd", "--background-index", "--suggest-missing-includes" }
-})
-
 local dashboard = require("alpha.themes.dashboard")
 dashboard.section.header.val = {
     " ██████╗██╗     ██╗   ██╗███████╗████████╗██████╗ ██╗  ██╗",
