@@ -76,73 +76,87 @@ local util = require('lspconfig.util')
 
 
 -- -- Python
-require("lspconfig").pylsp.setup({
-  settings = {
-    pylsp = {
-      plugins = {
-        rope = { enabled = false },          -- disable built-in basic Rope
-        pylsp_rope = { enabled = true },     -- enable the advanced plugin
-        rope_rename = { enabled = false },
-        jedi_rename = { enabled = false },
-        black = { enabled = true },
-        isort = { enabled = true },
-        ruff = { enabled = true },
-        mypy = { enabled = true },
-        pycodestyle = { enabled = false },
-        flake8 = { enabled = false },
-      }
+vim.lsp.config("pylsp", {
+    settings = {
+        pylsp = {
+            plugins = {
+                rope = { enabled = false },      -- disable built-in basic Rope
+                pylsp_rope = { enabled = true }, -- enable the advanced plugin
+                rope_rename = { enabled = false },
+                jedi_rename = { enabled = false },
+                black = { enabled = true },
+                isort = { enabled = true },
+                ruff = { enabled = true },
+                mypy = { enabled = true },
+                pycodestyle = { enabled = false },
+                flake8 = { enabled = false },
+            }
+        }
     }
-  }
 })
 
 -- -- Lua
-require('lspconfig')['lua_ls'].setup {
+vim.lsp.config("lua_ls", {
     capabilities = capabilities
-}
+})
 
 -- -- TS
-require('lspconfig')['ts_ls'].setup {
+vim.lsp.config("ts_ls", {
     capabilities = capabilities,
-}
+})
 
 -- -- C/C++
-require('lspconfig')['ccls'].setup {
+vim.lsp.config("ccls", {
     capabilities = capabilities,
-}
+})
 
 -- -- Rust
-require('lspconfig')['rust_analyzer'].setup {
+vim.lsp.config("rust_analyzer", {
     capabilities = capabilities,
-}
+})
 
 -- -- Go
-require('lspconfig')['gopls'].setup {
+vim.lsp.config("gopls", {
     capabilities = capabilities,
-}
+})
 
 -- -- Docker
-require('lspconfig')['dockerls'].setup {
+vim.lsp.config("dockerls", {
     capabilities = capabilities,
-}
+})
 
 -- -- LaTeX
-require('lspconfig')['texlab'].setup {
+vim.lsp.config("texlab", {
     capabilities = capabilities,
-}
+})
 
-require('lspconfig')['omnisharp'].setup {
+vim.lsp.config("omnisharp", {
     capabilities = capabilities,
-}
+})
 
 -- Java
-require('lspconfig')['jdtls'].setup {
+vim.lsp.config("jdtls", {
     capabilities = capabilities,
-}
+})
 
 -- Assembly
-require('lspconfig')['asm_lsp'].setup {
+vim.lsp.config("asm_lsp", {
     cmd = { 'asm-lsp' },
     filetypes = { 'asm', 's', 'S' },
     root_dir = require('lspconfig.util').root_pattern('.git', '.'),
     capabilities = capabilities,
-}
+})
+
+vim.lsp.enable({
+    "ts_ls",
+    "gopls",
+    "dockerls",
+    "pylsp",
+    "lua_ls",
+    "ccls",
+    "omnisharp",
+    "asm_lsp",
+    "texlab",
+    "jdtls",
+    "rust_analyzer"
+})
