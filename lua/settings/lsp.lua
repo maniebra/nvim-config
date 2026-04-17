@@ -95,6 +95,11 @@ vim.lsp.config("pylsp", {
     }
 })
 
+vim.lsp.config("basedpyright", {
+    cmd = { "basedpyright-langserver", "--stdio" },
+    capabilities = capabilities,
+})
+
 -- -- Lua
 vim.lsp.config("lua_ls", {
     capabilities = capabilities
