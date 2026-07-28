@@ -162,6 +162,7 @@ vim.keymap.set("n", '<leader>fd', ':Telescope fd<CR>', { desc = "open telescope 
 vim.keymap.set("n", '<leader>cp', ':Telescope commands<CR>', { desc = "open telescope commands", remap = true })
 vim.keymap.set("n", '<leader>CS', ':Telescope colorscheme<CR>', { desc = "open telescope colorscheme", remap = true })
 vim.keymap.set("n", '<leader>tvo', ':Telescope vim_options<CR>', { desc = "open telescope vim options", remap = true })
+vim.keymap.set("n", '<leader>gr', ':Telescope live_grep<CR>', { desc = "open telescope live grep", remap = true })
 
 -- DOCUMENT GENERATION
 vim.keymap.set('n', '<Leader>dg', '<Plug>(doge-generate)')
@@ -230,4 +231,4 @@ function _G.Toggle_venn()
     end
 end
 -- toggle keymappings for venn using <leader>v
-vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true})
+vim.keymap.set('n', '<leader>v', Toggle_venn, { noremap = true, desc = "Toggle venn drawing mode" })

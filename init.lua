@@ -2,9 +2,10 @@ vim.g.mapleader = " "
 
 -- Load lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local uv = vim.uv or vim.loop
 
 -- Check if lazy.nvim is installed; if not, bootstrap it
-if not vim.loop.fs_stat(lazypath) then
+if not uv.fs_stat(lazypath) then
   vim.fn.system({
     "git", "clone", "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
@@ -20,7 +21,6 @@ if vim.g.neovide then
 end
 
 require("lazy").setup("plugins")
-require("nvim-tree").setup()
 
 require("settings.keymaps")
 require("settings.lsp")

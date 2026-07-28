@@ -7,7 +7,8 @@ return {
             require('auto-session').setup({
                 suppressed_dirs = { "~/", "/" },
                 auto_save = true,
-                auto_restore = true,
+                -- Keep session saves, but don't auto-restore on startup so Alpha can show.
+                auto_restore = false,
                 auto_session_enable_last_session = true,
             })
         end,
@@ -27,7 +28,22 @@ return {
             },
         },
     },
-    { "mistricky/codesnap.nvim", build = "make" },
+    {
+        "mistricky/codesnap.nvim",
+        version = "v2.0.0",
+        build = "make",
+        cmd = { "CodeSnap", "CodeSnapSave" },
+        opts = {
+            save_path = "~/Pictures/CodeSnaps/",
+            has_breadcrumbs = true,
+            has_line_numbers = true,
+            bg_theme = "grape",
+            min_width = 32,
+            bg_padding = 0,
+            watermark_font_family = "Inter",
+            watermark = "https://github.com/maniebra",
+        },
+    },
     {
         "nvim-neorg/neorg",
         lazy = false

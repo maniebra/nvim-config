@@ -28,4 +28,4 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.cmd 'colorscheme tokyonight'
-vim.cmd 'set ve+=onemore'
+vim.opt.virtualedit:append("onemore")

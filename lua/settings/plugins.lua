@@ -2,6 +2,7 @@ require('auto-session').setup({
     log_level = 'info',
 
     pre_save_cmds = {
+        "NvimTreeClose",
         function()
             require("nvim-tree.api").tree.close()
         end
@@ -45,6 +46,7 @@ require("nvim-tree").setup({
 
 require("noice").setup({
     lsp = {
+        progress = { enabled = false },
         override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
             ["vim.lsp.util.stylize_markdown"] = true,
@@ -58,6 +60,7 @@ require("noice").setup({
         inc_rename = false,
         lsp_doc_border = false,
     },
+    signature = { enabled = false },
 })
 
 require("themery").setup({
@@ -75,17 +78,6 @@ require("themery").setup({
 
 require("todo-comments").setup()
 
-require("codesnap").setup({
-    save_path = "~/Pictures/CodeSnaps/",
-    has_breadcrumbs = true,
-    has_line_numbers = true,
-    bg_theme = "grape",
-    min_width = 32,
-    bg_padding = 0,
-    watermark_font_family = "Inter",
-    watermark = "https://github.com/maniebra",
-})
-
 local dashboard = require("alpha.themes.dashboard")
 dashboard.section.header.val = {
     " ██████╗██╗     ██╗   ██╗███████╗████████╗██████╗ ██╗  ██╗",
@@ -99,7 +91,7 @@ dashboard.section.buttons.val = {
     dashboard.button("f", "󰈞  Find file", ":Telescope find_files<CR>"),
     dashboard.button("r", "  Recent files", ":Telescope oldfiles<CR>"),
     dashboard.button("s", "  Restore Session", ":lua require('auto-session.session-lens').search_session()<CR>"),
-    dashboard.button("p", " Projects", ":Telescope projects<CR>"),
+    dashboard.button("p", "  Projects", ":Telescope projects<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),
 }
 require("alpha").setup(dashboard.config)
