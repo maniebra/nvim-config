@@ -2,7 +2,6 @@ require('auto-session').setup({
     log_level = 'info',
 
     pre_save_cmds = {
-        "NvimTreeClose",
         function()
             require("nvim-tree.api").tree.close()
         end
@@ -26,7 +25,11 @@ require('lualine').setup({
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
         lualine_y = { 'encoding', 'fileformat', 'filetype' },
-        lualine_x = { 'progress', require("music-controls")._statusline },
+        -- music-controls is a local plugin; keep it from breaking the statusline if absent.
+        lualine_x = { 'progress', function()
+            local ok, mc = pcall(require, "music-controls")
+            return ok and mc._statusline() or ''
+        end },
         lualine_z = { 'location' }
     },
 })

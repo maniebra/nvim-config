@@ -7,50 +7,41 @@ vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true, desc = "Exit
 vim.keymap.set('n', '<C-G><C-A>', ':Git add .<CR>',
     { noremap = true, silent = true, desc = "Git add: all files in currect directory" })
 vim.keymap.set('n', '<C-G><C-P>', ':Git push<CR>', { noremap = true, silent = true, desc = "Git push" })
-vim.keymap.set('n', '<C-G><C-S>', function()
-    local commit_message = vim.fn.input('Commit message: ', '#')
-    if commit_message ~= '' then
-        vim.cmd('Git commit -m "' .. commit_message .. '"')
-    else
-        print('Commit canceled.')
+-- shellescape keeps quotes/$ in a message from breaking (or running as) shell code.
+local function git_commit(default, opts)
+    return function()
+        local msg = vim.fn.input('Commit message: ', default)
+        if msg == '' then
+            return vim.notify('Commit canceled.', vim.log.levels.WARN)
+        end
+        if opts.add then vim.cmd('Git add .') end
+        vim.cmd('Git commit -a -m ' .. vim.fn.shellescape(msg))
+        if opts.push then vim.cmd('Git push') end
     end
-end, { noremap = true, silent = true, desc = "Git commit with dynamic message" })
-vim.keymap.set('n', '<C-G><C-G>', function()
-    local commit_message = vim.fn.input('Commit message: ', '#')
-    if commit_message ~= '' then
-        vim.cmd(':Git add .')
-        vim.cmd('Git commit -a -m "' .. commit_message .. '"')
-    else
-        print('Invalid commit')
-    end
-    vim.cmd(':Git push')
-end, { noremap = true, silent = true, desc = "Git add-commit-push" })
+end
 
-vim.keymap.set('n', '<C-G><C-M>', function()
-    local commit_message = vim.fn.input('Commit message: ', 'KOSE NANE POORI')
-    if commit_message ~= '' then
-        vim.cmd(':Git add .')
-        vim.cmd('Git commit -a -m "' .. commit_message .. '"')
-    else
-        print('Invalid commit')
-    end
-    vim.cmd(':Git push')
-end, { noremap = true, silent = true, desc = "Git add-commit-push" })
+vim.keymap.set('n', '<C-G><C-S>', git_commit('#', {}),
+    { noremap = true, silent = true, desc = "Git commit with dynamic message" })
+vim.keymap.set('n', '<C-G><C-G>', git_commit('#', { add = true, push = true }),
+    { noremap = true, silent = true, desc = "Git add-commit-push" })
+vim.keymap.set('n', '<C-G><C-M>', git_commit('KOSE NANE POORI', { add = true, push = true }),
+    { noremap = true, silent = true, desc = "Git add-commit-push (default message)" })
 
 -- RUNNERS
 vim.keymap.set('n', '<F5>', ':make<CR>', { noremap = true, silent = true, desc = "Execute all in Makefile" })
 vim.keymap.set('n', '<F6>', ':make build<CR>', { noremap = true, silent = true, desc = "Execute build in Makefile" })
 vim.keymap.set('n', '<F7>', ':make run<CR>', { noremap = true, silent = true, desc = "Execute run in Makefile" })
 
-local function get_venv_activate()
-    local paths = { ".venv", "venv", "env" }
-    for _, p in ipairs(paths) do
-        local activate = p .. "/bin/activate"
-        if vim.fn.filereadable(activate) == 1 then
-            return activate
+-- Buffer-local <F5>: prefixes the project venv when there is one.
+local function run_map(cmd, desc)
+    for _, p in ipairs({ ".venv", "venv", "env" }) do
+        if vim.fn.filereadable(p .. "/bin/activate") == 1 then
+            cmd = "source " .. p .. "/bin/activate && " .. cmd
+            break
         end
     end
-    return nil
+    vim.keymap.set('n', '<F5>', ':!' .. cmd .. '<CR>',
+        { buffer = true, noremap = true, silent = true, desc = desc })
 end
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -64,28 +55,10 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "python" },
     callback = function()
-        local venv = get_venv_activate()
-        if venv then
-            vim.keymap.set('n', '<F5>', ':!source ' .. venv .. ' && python main.py<CR>',
-                { buffer = true, noremap = true, silent = true, desc = "Run main.py with venv" })
-        else
-            vim.keymap.set('n', '<F5>', ':!python main.py<CR>',
-                { buffer = true, noremap = true, silent = true, desc = "Run main.py" })
-        end
-    end
-})
-
-vim.api.nvim_create_autocmd("BufReadPost", {
-    callback = function()
         if vim.fn.filereadable("manage.py") == 1 then
-            local venv = get_venv_activate()
-            if venv then
-                vim.keymap.set('n', '<F5>', ':!source ' .. venv .. ' && python manage.py runserver<CR>',
-                    { buffer = true, noremap = true, silent = true, desc = "Run Django server with venv" })
-            else
-                vim.keymap.set('n', '<F5>', ':!python manage.py runserver<CR>',
-                    { buffer = true, noremap = true, silent = true, desc = "Run Django server" })
-            end
+            run_map("python manage.py runserver", "Run Django server")
+        else
+            run_map("python main.py", "Run main.py")
         end
     end
 })
@@ -138,15 +111,10 @@ vim.keymap.set('x', '<leader>cs', ':CodeSnapSave<CR>', { desc = "CodeSnap Image 
 
 vim.keymap.set('n', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', { desc = "open a new tab", remap = true })
 vim.keymap.set('i', '<C-T><C-T>', ':tabnew<CR><C-T><C-D><C-W><C-W>', { desc = "open a new tab", remap = true })
-vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', { desc = "open tab 1", remap = true, silent = true })
-vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', { desc = "open tab 2", remap = true, silent = true })
-vim.keymap.set('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', { desc = "open tab 3", remap = true, silent = true })
-vim.keymap.set('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', { desc = "open tab 4", remap = true, silent = true })
-vim.keymap.set('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', { desc = "open tab 5", remap = true, silent = true })
-vim.keymap.set('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', { desc = "open tab 6", remap = true, silent = true })
-vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', { desc = "open tab 7", remap = true, silent = true })
-vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', { desc = "open tab 8", remap = true, silent = true })
-vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', { desc = "open tab 9", remap = true, silent = true })
+for i = 1, 9 do
+    vim.keymap.set('n', '<A-' .. i .. '>', '<Cmd>BufferGoto ' .. i .. '<CR>',
+        { desc = "open tab " .. i, remap = true, silent = true })
+end
 vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>', { desc = "open the last tab", remap = true, silent = true })
 vim.keymap.set('n', '<A-->', '<Cmd>BufferMoveNext<CR>', { desc = "move tab forward", remap = true, silent = true })
 vim.keymap.set('n', '<A-=>', '<Cmd>BufferMovePrevious<CR>', { desc = "move tab backward", remap = true, silent = true })
@@ -193,42 +161,34 @@ vim.keymap.set('n', '<leader>cl', function()
     end)
 end, { desc = 'Calculator', noremap = true, silent = true })
 
--- Goto Preview
-vim.keymap.set("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
-    { desc = "go to definiton preview", noremap = true })
-vim.keymap.set("n", "gpt", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
-    { desc = "go to type definiton preview", noremap = true })
-vim.keymap.set("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
-    { desc = "go to implementation preview", noremap = true })
-vim.keymap.set("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
-    { desc = "go to declaration preview", noremap = true })
-vim.keymap.set("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>",
-    { desc = "close all preview windows", noremap = true })
-vim.keymap.set("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
-    { desc = "go to preview references", noremap = true })
-
--- VENN PLUGIN
-function _G.Toggle_venn()
-    local venn_enabled = vim.inspect(vim.b.venn_enabled)
-    if venn_enabled == "nil" then
-        vim.b.venn_enabled = true
-        vim.cmd[[setlocal ve=all]]
-        -- draw a line on HJKL keystokes
-        vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", {noremap = true})
-        vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", {noremap = true})
-        vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", {noremap = true})
-        vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", {noremap = true})
-        -- draw a box by pressing "f" with visual selection
-        vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", {noremap = true})
-    else
-        vim.cmd[[setlocal ve=]]
-        vim.api.nvim_buf_del_keymap(0, "n", "J")
-        vim.api.nvim_buf_del_keymap(0, "n", "K")
-        vim.api.nvim_buf_del_keymap(0, "n", "L")
-        vim.api.nvim_buf_del_keymap(0, "n", "H")
-        vim.api.nvim_buf_del_keymap(0, "v", "f")
-        vim.b.venn_enabled = nil
-    end
+-- Goto Preview (required lazily so a missing plugin costs a keypress, not startup)
+for key, fn in pairs({
+    gpd = "goto_preview_definition",
+    gpt = "goto_preview_type_definition",
+    gpi = "goto_preview_implementation",
+    gpD = "goto_preview_declaration",
+    gpr = "goto_preview_references",
+    gP = "close_all_win",
+}) do
+    vim.keymap.set("n", key, function() require('goto-preview')[fn]() end,
+        { desc = "goto-preview: " .. fn, noremap = true })
 end
--- toggle keymappings for venn using <leader>v
-vim.keymap.set('n', '<leader>v', Toggle_venn, { noremap = true, desc = "Toggle venn drawing mode" })
+
+-- VENN PLUGIN: HJKL draw lines, `f` boxes a visual selection.
+local venn_keys = { n = { J = 'j', K = 'k', L = 'l', H = 'h' }, v = { f = '' } }
+
+vim.keymap.set('n', '<leader>v', function()
+    local on = not vim.b.venn_enabled
+    vim.b.venn_enabled = on or nil
+    vim.wo.virtualedit = on and 'all' or vim.go.virtualedit
+    for mode, keys in pairs(venn_keys) do
+        for key, motion in pairs(keys) do
+            if on then
+                local prefix = motion ~= '' and ('<C-v>' .. motion) or ''
+                vim.keymap.set(mode, key, prefix .. ':VBox<CR>', { buffer = true, noremap = true })
+            else
+                pcall(vim.keymap.del, mode, key, { buffer = true })
+            end
+        end
+    end
+end, { noremap = true, desc = "Toggle venn drawing mode" })

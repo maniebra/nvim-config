@@ -70,12 +70,12 @@ cmp.setup.cmdline(':', {
     })
 })
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Applied to every server; no need to repeat it per-config.
+vim.lsp.config("*", {
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
 
-local util = require('lspconfig.util')
-
-
--- -- Python
+-- Python
 vim.lsp.config("pylsp", {
     settings = {
         pylsp = {
@@ -95,62 +95,16 @@ vim.lsp.config("pylsp", {
     }
 })
 
-vim.lsp.config("basedpyright", {
-    cmd = { "basedpyright-langserver", "--stdio" },
-    capabilities = capabilities,
-})
-
--- -- Lua
-vim.lsp.config("lua_ls", {
-    capabilities = capabilities
-})
-
--- -- TS
-vim.lsp.config("ts_ls", {
-    capabilities = capabilities,
-})
-
--- -- C/C++
-vim.lsp.config("ccls", {
-    capabilities = capabilities,
-})
-
--- -- Rust
-vim.lsp.config("rust_analyzer", {
-    capabilities = capabilities,
-})
-
--- -- Go
-vim.lsp.config("gopls", {
-    capabilities = capabilities,
-})
-
--- -- Docker
-vim.lsp.config("dockerls", {
-    capabilities = capabilities,
-})
-
--- -- LaTeX
-vim.lsp.config("texlab", {
-    capabilities = capabilities,
-})
-
-vim.lsp.config("omnisharp", {
-    capabilities = capabilities,
-})
-
--- Java
-vim.lsp.config("jdtls", {
-    capabilities = capabilities,
-})
-
--- Assembly
+-- Assembly: not shipped by nvim-lspconfig, so it needs a full definition.
 vim.lsp.config("asm_lsp", {
     cmd = { 'asm-lsp' },
     filetypes = { 'asm', 's', 'S' },
-    root_dir = require('lspconfig.util').root_pattern('.git', '.'),
-    capabilities = capabilities,
+    root_dir = function(bufnr, on_dir)
+        on_dir(vim.fs.root(bufnr, { '.asm-lsp.toml', '.git' }) or vim.fn.getcwd())
+    end,
 })
+
+-- Servers below use nvim-lspconfig's stock config as-is.
 
 vim.lsp.enable({
     "ts_ls",

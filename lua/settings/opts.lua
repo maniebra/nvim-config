@@ -1,10 +1,10 @@
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.o.shell = '/bin/zsh -i'
 
-vim.opt.signcolumn = 'yes'
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.clipboard = 'unnamedplus'
+vim.o.signcolumn = 'yes'
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.clipboard = 'unnamedplus'
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -27,5 +27,9 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.cmd 'colorscheme tokyonight'
-vim.opt.virtualedit:append("onemore")
+vim.o.virtualedit = "onemore"
+
+-- Don't let a missing/broken colorscheme abort the rest of the config.
+if not pcall(vim.cmd.colorscheme, 'tokyonight') then
+    vim.notify("tokyonight not available, using default colorscheme", vim.log.levels.WARN)
+end
