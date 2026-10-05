@@ -106,7 +106,8 @@ vim.lsp.config("asm_lsp", {
 
 -- Servers below use nvim-lspconfig's stock config as-is.
 
-vim.lsp.enable({
+-- Only enable servers whose binary is installed, so missing ones don't spam warnings.
+local servers = {
     "ts_ls",
     "gopls",
     "dockerls",
@@ -118,4 +119,11 @@ vim.lsp.enable({
     "texlab",
     "jdtls",
     "rust_analyzer"
-})
+}
+
+for _, name in ipairs(servers) do
+    local cmd = (vim.lsp.config[name] or {}).cmd
+    if type(cmd) ~= "table" or vim.fn.executable(cmd[1]) == 1 then
+        vim.lsp.enable(name)
+    end
+end
